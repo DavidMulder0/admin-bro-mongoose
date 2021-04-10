@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "rm -rf lib && tsc --watch",
     "build": "rm -rf lib && tsc",
-    "prepare": "yarn build",
+    "postinstall": "yarn build",
     "test": "jest --config ./test/jest.json --runInBand",
     "cover": "jest --config ./test/jest.json --runInBand --coverage",
     "lint": "eslint './test/**/*.ts' './src/**/*.ts'",
