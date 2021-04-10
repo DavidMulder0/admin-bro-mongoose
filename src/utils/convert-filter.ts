@@ -12,18 +12,18 @@ export const convertFilter = (filter) => {
     return {}
   }
   return filter.reduce((memo, filterProperty) => {
-    const { property, value } = filterProperty
+    const { property, value, path } = filterProperty
     switch (property.type()) {
     case 'string':
       return {
-        [property.name()]: { $regex: escape(value), $options: 'i' },
+        [path]: { $regex: escape(value), $options: 'i' },
         ...memo,
       }
     case 'date':
     case 'datetime':
       if (value.from || value.to) {
         return {
-          [property.name()]: {
+          [path]: {
             ...value.from && { $gte: value.from },
             ...value.to && { $lte: value.to },
           },
@@ -34,7 +34,7 @@ export const convertFilter = (filter) => {
     case 'id':
       if (mongoose.Types.ObjectId.isValid(value)) {
         return {
-          [property.name()]: value,
+          [path]: value,
           ...memo,
         }
       }
@@ -43,7 +43,7 @@ export const convertFilter = (filter) => {
       break
     }
     return {
-      [property.name()]: value,
+      [path]: value,
       ...memo,
     }
   }, {})
