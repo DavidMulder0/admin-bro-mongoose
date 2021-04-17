@@ -6,7 +6,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "dev": "rm -rf lib && tsc --watch",
-    "build": "rm -rf lib && tsc",
+    "build": "rimraf lib && tsc",
     "postinstall": "yarn build",
     "test": "jest --config ./test/jest.json --runInBand",
     "cover": "jest --config ./test/jest.json --runInBand --coverage",
@@ -31,7 +31,8 @@
   "dependencies": {
     "escape-regexp": "0.0.1",
     "flat": "^4.1.0",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",

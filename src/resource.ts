@@ -70,7 +70,7 @@ class Resource extends BaseResource {
       return this.MongooseModel.count(convertFilter(filters))
     }
 
-    async find(filters = {}, { limit = 20, offset = 0, sort = {} }: FindOptions) {
+    async find(filters, { limit = 20, offset = 0, sort = {} }: FindOptions) {
       const { direction, sortBy } = sort
       const sortingParam = {
         [sortBy]: direction,
