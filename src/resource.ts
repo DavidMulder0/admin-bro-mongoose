@@ -62,8 +62,14 @@ class Resource extends BaseResource {
       ))
     }
 
-    property(name:string) {
-      return this.properties().find(property => property.path() === name) ?? null
+    property(path:string) {
+      // sorry for the messy fix if you see this
+      const pathParts = path.split('.');
+      if (pathParts.length === 1) {
+        return this.properties().find(property => property.path() === pathParts[0]) ?? null
+      } else {
+        return this.properties().find(property => property.path() === pathParts[0]).subProperties().find(property => property.path() === pathParts[1]) ?? null
+      }
     }
 
     async count(filters = null) {
