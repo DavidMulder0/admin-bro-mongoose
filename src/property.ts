@@ -32,7 +32,7 @@ class Property extends BaseProperty {
      *
      * property = new Property(schema.paths.email))
      */
-    constructor(path, position = 0) {
+    constructor(path, position = 0, protected mongooseVirtual: boolean = false) {
       super({ path: path.path, position })
       this.mongoosePath = path
     }
@@ -66,6 +66,9 @@ class Property extends BaseProperty {
     }
 
     isEditable() {
+      if (this.mongooseVirtual) {
+        return false
+      }
       return this.name() !== VERSION_KEY_PROPERTY && this.name() !== ID_PROPERTY
     }
 

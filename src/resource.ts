@@ -57,9 +57,14 @@ class Resource extends BaseResource {
     }
 
     properties() {
-      return Object.entries(this.MongooseModel.schema.paths).map(([, path], position) => (
-        new Property(path, position)
-      ))
+      return [
+        ...Object.entries(this.MongooseModel.schema.paths).map(([, path], position) => (
+          new Property(path, position))
+        ),
+        ...Object.entries((this.MongooseModel.schema as any).virtuals).map(([, path], position) => (
+          new Property(path, position + 999, true))
+        )
+      ]
     }
 
     property(path:string) {
